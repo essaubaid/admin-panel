@@ -3,7 +3,7 @@ import { getProductFailure, getProductStart, getProductSuccess, deleteProductFai
 import { loginFailure, loginStart, loginSuccess } from "./userRedux"
 
 const user_id = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser._id
-
+//const user_id=''
 export const login = async (dispatch, user) => {
     dispatch(loginStart());
     try {

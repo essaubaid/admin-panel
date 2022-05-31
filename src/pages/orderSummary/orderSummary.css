@@ -1,0 +1,31 @@
+.orderSummaryList{
+    flex: 4;
+    max-height: 370px;
+}
+
+.orderSummaryListItem{
+    display: flex;
+    align-items: center;
+}
+
+.orderSummaryListImg {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+
+
+.orderSummaryListDelete{
+    color: red;
+    cursor: pointer;
+}
+.FilterSize{
+margin-left:5px;
+padding:3px;
+}
+.FilterTitle{
+    font-size: 20px;
+font-weight: 200;
+}

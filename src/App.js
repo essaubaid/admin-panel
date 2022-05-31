@@ -11,6 +11,8 @@ import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Orders from "./pages/orders/orders";
 import Login from "./pages/Login";
+import OrderSummary from "./pages/orderSummary/orderSummay";
+import OrderDetails from "./components/orderDetails/orderDetails";
 function App() {
 
   const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser.role === "ADMIN"
@@ -49,6 +51,12 @@ function App() {
               </Route>
               <Route path="/orders">
                 <Orders />
+              </Route>
+              <Route path="/OrderSummary">
+                <OrderSummary />
+              </Route>
+              <Route path="/orderDetails">
+                <OrderDetails />
               </Route>
               
             </div>
