@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 function App() {
 
   const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser.role === "ADMIN"
+ //const admin =false
   return (
     <Router>
       <Switch>
@@ -49,6 +50,7 @@ function App() {
               <Route path="/orders">
                 <Orders />
               </Route>
+              
             </div>
           </>
         }
