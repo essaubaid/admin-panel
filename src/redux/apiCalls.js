@@ -1,5 +1,5 @@
 import { publicRequest, userRequest } from "../requestMethods";
-import { getProductFailure, getProductStart, getProductSuccess, deleteProductFailure, deleteProductStart, deleteProductSuccess } from "./productRedux";
+import { getProductFailure, getProductStart, getProductSuccess, deleteProductFailure, deleteProductStart, deleteProductSuccess, updateProductFailure, updateProductStart, updateProductSuccess, addProductFailure, addProductStart, addProductSuccess } from "./productRedux";
 import { loginFailure, loginStart, loginSuccess } from "./userRedux"
 
 const user_id = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser._id
@@ -28,9 +28,30 @@ export const deleteProduct = async (product_id, dispatch) => {
     dispatch(deleteProductStart());
     try {
         const res = await userRequest.delete(`/product/deleteProduct/${user_id}/${product_id}`)
-        console.log(res.data)
+        //console.log(res.data)
         dispatch(deleteProductSuccess(product_id));
     } catch {
         dispatch(deleteProductFailure());
+    }
+}
+
+export const updateProduct = async (id, product, dispatch) => {
+    dispatch(updateProductStart());
+    try {
+        //const res = await userRequest.delete(`/product/deleteProduct/${user_id}/${product_id}`)
+        //console.log(res.data)
+        dispatch(updateProductSuccess({ id, product }));
+    } catch {
+        dispatch(updateProductFailure());
+    }
+}
+
+export const addProduct = async (product, dispatch) => {
+    dispatch(addProductStart());
+    try {
+        const res = await userRequest.post(`/product/createProduct/${user_id}`, product)
+        dispatch(addProductSuccess(res.data));
+    } catch {
+        dispatch(addProductFailure());
     }
 }
