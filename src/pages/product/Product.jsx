@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
 import "./product.css";
 import Chart from "../../components/chart/Chart"
@@ -5,12 +6,58 @@ import { productData } from "../../dummyData"
 import { Publish } from "@material-ui/icons";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateProduct } from "../../redux/apiCalls";
+
 
 export default function Product() {
     const location = useLocation()
     const productId = location.pathname.split("/")[2];
 
     const product = useSelector(state => state.product.products.find(product => product._id === productId))
+
+    const [inputs, setInputs] = useState({
+        productName: product.productName,
+        productPrice: product.productPrice,
+        stock: product.stock,
+
+    });
+    const [file, setFile] = useState(null);
+    const [color, setColor] = useState(product.color);
+    const [size, setSize] = useState(product.size);
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => {
+        setInputs(prev => {
+            return { ...prev, [e.target.name]: e.target.value }
+        })
+    }
+    const handleColor = (e) => {
+        setColor(e.target.value.split(","))
+    }
+    const handleSize = (e) => {
+        setSize(e.target.value.split(","))
+    }
+
+    const handleClick = async (e) => {
+        e.preventDefault();
+
+        const formdata = new FormData()
+
+        formdata.append('productImage', file)
+        formdata.append('productName', inputs.productName)
+        formdata.append('productPrice', inputs.productPrice)
+        formdata.append('stock', inputs.stock)
+        size.map((item) => (
+            formdata.append('size', item)
+        ))
+        color.map((item) => (
+            formdata.append('color', item)
+        ))
+
+        updateProduct(product._id, formdata, dispatch)
+    }
 
     return (
         <div className="product">
@@ -53,18 +100,17 @@ export default function Product() {
                 <form className="productForm">
                     <div className="productFormLeft">
                         <label>Product Name</label>
-                        <input type="text" placeholder={product.productName} />
+                        <input name="productName" type="text" placeholder={product.productName} value={inputs.productName} onChange={handleChange} />
                         <label>Price</label>
-                        <input type="text" placeholder={product.productPrice} />
-                        <label>In Stock</label>
-                        <select name="inStock" id="idStock">
+                        <input name="productPrice" value={inputs.productPrice} type="text" placeholder={product.productPrice} onChange={handleChange} />
+                        <label>Color</label>
+                        <input name="color" type="text" placeholder={product.color} value={color} onChange={handleColor} />
+                        <label>Size</label>
+                        <input name="size" type="text" value={size} placeholder={product.size} onChange={handleSize} />
+                        <label>Stock</label>
+                        <select onChange={handleChange} name="stock" id="idStock">
                             <option value="Available">Available</option>
                             <option value="OutOfStock">OutOfStock</option>
-                        </select>
-                        <label>Active</label>
-                        <select name="active" id="active">
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
                         </select>
                     </div>
                     <div className="productFormRight">
@@ -73,9 +119,9 @@ export default function Product() {
                             <label for="file">
                                 <Publish />
                             </label>
-                            <input type="file" id="file" style={{ display: "none" }} />
+                            <input onChange={e => setFile(e.target.files[0])} type="file" id="file" style={{ display: "none" }} />
                         </div>
-                        <button className="productButton">Update</button>
+                        <button onClick={handleClick} className="productButton">Update</button>
                     </div>
                 </form>
             </div>
