@@ -1,5 +1,6 @@
 import { publicRequest, userRequest } from "../requestMethods";
 import { getProductFailure, getProductStart, getProductSuccess, deleteProductFailure, deleteProductStart, deleteProductSuccess, updateProductFailure, updateProductStart, updateProductSuccess, addProductFailure, addProductStart, addProductSuccess } from "./productRedux";
+import { getClientFailure, getClientStart, getClientSuccess } from "./clientRedux";
 import { loginFailure, loginStart, loginSuccess } from "./userRedux"
 
 const user_id = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser._id
@@ -21,6 +22,17 @@ export const getProducts = async (dispatch) => {
         dispatch(getProductSuccess(res.data));
     } catch {
         dispatch(getProductFailure());
+    }
+}
+
+export const getClients = async (dispatch) => {
+    dispatch(getClientStart());
+    try {
+        const res = await userRequest.get(`users/allusers/${user_id}`)
+        console.log(res)
+        dispatch(getClientSuccess(res.data));
+    } catch {
+        dispatch(getClientFailure());
     }
 }
 
