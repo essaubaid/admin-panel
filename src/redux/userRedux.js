@@ -23,6 +23,9 @@ const userSlice = createSlice({
             if (action.payload.others.role == "ADMIN") {
                 state.isAdmin = true;
             }
+            else{
+                state.isAdmin=false;
+            }
         },
         loginFailure: (state) => {
             state.isFetching = false;
