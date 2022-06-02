@@ -13,10 +13,11 @@ import Orders from "./pages/orders/orders";
 import Login from "./pages/Login";
 import OrderSummary from "./pages/orderSummary/orderSummay";
 import OrderDetails from "./components/orderDetails/orderDetails";
+import { store } from './redux/store';
 function App() {
-
-  const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser.role === "ADMIN"
- //const admin =false
+  //const state = store.getState();
+  const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).isAdmin
+  //const admin = false
   return (
     <Router>
       <Switch>
@@ -58,7 +59,7 @@ function App() {
               <Route path="/orderDetails">
                 <OrderDetails />
               </Route>
-              
+
             </div>
           </>
         }

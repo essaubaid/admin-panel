@@ -2,9 +2,10 @@ import { publicRequest, userRequest } from "../requestMethods";
 import { getProductFailure, getProductStart, getProductSuccess, deleteProductFailure, deleteProductStart, deleteProductSuccess, updateProductFailure, updateProductStart, updateProductSuccess, addProductFailure, addProductStart, addProductSuccess } from "./productRedux";
 import { getClientFailure, getClientStart, getClientSuccess } from "./clientRedux";
 import { loginFailure, loginStart, loginSuccess } from "./userRedux"
+import { orderFailure, orderStart, getOrderListSuccess } from "./orderRedux";
 
-const user_id = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser._id
-//const user_id=''
+const user_id = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).id
+//const user_id = ''
 export const login = async (dispatch, user) => {
     dispatch(loginStart());
     try {
@@ -65,5 +66,15 @@ export const addProduct = async (product, dispatch) => {
         dispatch(addProductSuccess(res.data));
     } catch {
         dispatch(addProductFailure());
+    }
+}
+
+export const getOrderList = async (dispatch) => {
+    dispatch(orderStart());
+    try {
+        const res = await userRequest.get(`/order/getAllOrders/${user_id}`)
+        dispatch(getOrderListSuccess(res.data));
+    } catch {
+        dispatch(orderFailure());
     }
 }
