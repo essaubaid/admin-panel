@@ -1,61 +1,59 @@
 import "./orderDetails.css";
 import {
-    CalendarToday,
-    LocationSearching,
-    MailOutline,
-    PermIdentity,
-    PhoneAndroid,
-  } from "@material-ui/icons";
-  import { Link } from "react-router-dom";
+  CalendarToday,
+  LocationSearching,
+  PermIdentity,
+  PhoneAndroid,
+  Home,
+} from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import { format } from "timeago.js";
 
-const OrderDetails = () => {
-  
-  
-  
-    return (
+const OrderDetails = (props) => {
+
+  const Order = props.comp
+  console.log(Order)
+
+  return (
     <div className="user">
-    <div className="userTitleContainer">
+      <div className="userTitleContainer">
+      </div>
+      <div className="userContainer">
+        <div className="userShow">
+          <div className="userShowTop">
+            <img
+              src="https://cdn2.vectorstock.com/i/1000x1000/23/81/default-avatar-profile-icon-vector-18942381.jpg"
+              alt=""
+              className="userShowImg"
+            />
+            <div className="userShowTopTitle">
+              <span className="userShowUsername">Order Placed By: {Order.shipping_address.name}</span>
+              <span className="userShowUserTitle">user ID: {Order._id}</span>
+            </div>
+          </div>
+          <div className="userShowBottom">
+            <span className="userShowTitle">Account Details</span>
+            <div className="userShowInfo">
+              <PermIdentity className="userShowIcon" />
+              <span className="userShowInfoTitle">{Order.username}</span>
+            </div>
+            <div className="userShowInfo">
+              <CalendarToday className="userShowIcon" />
+              <span className="userShowInfoTitle">{format(Order.createdAt)}</span>
+            </div>
+            <span className="userShowTitle">Contact Details</span>
+            <div className="userShowInfo">
+              <Home className="userShowIcon" />
+              <span className="userShowInfoTitle">{Order.shipping_address.address.line1}</span>
+            </div>
+            <div className="userShowInfo">
+              <LocationSearching className="userShowIcon" />
+              <span className="userShowInfoTitle">{Order.shipping_address.address.city} | {Order.shipping_address.address.country}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div className="userContainer">
-      <div className="userShow">
-        <div className="userShowTop">
-          <img
-            src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-            alt=""
-            className="userShowImg"
-          />
-          <div className="userShowTopTitle">
-            <span className="userShowUsername">Anna Becker</span>
-            <span className="userShowUserTitle">Software Engineer</span>
-          </div>
-        </div>
-        <div className="userShowBottom">
-          <span className="userShowTitle">Account Details</span>
-          <div className="userShowInfo">
-            <PermIdentity className="userShowIcon" />
-            <span className="userShowInfoTitle">annabeck99</span>
-          </div>
-          <div className="userShowInfo">
-            <CalendarToday className="userShowIcon" />
-            <span className="userShowInfoTitle">10.12.1999</span>
-          </div>
-          <span className="userShowTitle">Contact Details</span>
-          <div className="userShowInfo">
-            <PhoneAndroid className="userShowIcon" />
-            <span className="userShowInfoTitle">+1 123 456 67</span>
-          </div>
-          <div className="userShowInfo">
-            <MailOutline className="userShowIcon" />
-            <span className="userShowInfoTitle">annabeck99@gmail.com</span>
-          </div>
-          <div className="userShowInfo">
-            <LocationSearching className="userShowIcon" />
-            <span className="userShowInfoTitle">New York | USA</span>
-          </div>
-        </div>
-      </div>
-      </div>
-      </div>
   )
 }
 
