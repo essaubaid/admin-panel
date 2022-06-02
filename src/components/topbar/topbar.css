@@ -17,8 +17,8 @@
 
 .logo {
   font-weight: bold;
-  font-size: 30px;
-  color: darkblue;
+  font-size: 20px;
+  color: rgb(85, 80, 189);
   cursor: pointer;
 }
 
@@ -55,3 +55,22 @@
     border-radius: 50%;
     cursor: pointer;
 }
+.logos{
+  font-weight: bold;
+  cursor: pointer;
+  color:black;
+  text-align: center;
+  font-size:35px;
+}
+.logoutButton{
+  padding: 5px;
+  border:0px;
+  font-weight: bold;
+  background-color: rgb(85, 80, 189);
+
+  color:white;
+  cursor: pointer; 
+  font-weight:500;
+  margin-left:10px;
+
+  }
