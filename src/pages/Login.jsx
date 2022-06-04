@@ -1,15 +1,22 @@
 import { React, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { login } from '../redux/apiCalls'
+import { Redirect, useHistory } from 'react-router-dom'
 
 const Login = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const dispatch = useDispatch()
+    const path = `/`;
+    const history = useHistory();
 
-    const handleClick = (e) => {
+    const handleClick = async (e) => {
         e.preventDefault()
-        login(dispatch, { username, password });
+        const res = await login(dispatch, { username, password });
+        if (res) {
+            console.log(res)
+            history.push(path);
+        }
 
     }
 
